@@ -7,7 +7,7 @@ h2{
 }
 form input{
     width: 100%;
-    padding: 5px;
+    padding: 3px;
 }
 
 .logo a{
@@ -32,4 +32,15 @@ button{
 }
 #add{
     width: 100px;
+}
+
+.content{
+    font-size: 22px;
+}
+.ads img{
+    max-height: 400px;
+}
+
+.filter{
+    margin-top: 50px;
 }

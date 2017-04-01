@@ -23,7 +23,15 @@
     <div class="col-md-12 text-right user">
         Привет <b><?php echo $_SESSION['user'] ?></b> &nbsp;&nbsp; <a href="/ads"> Добавить обьявление</a> &nbsp;&nbsp; <a href="/auth/logout"> Выход</a>
     </div>
-    <?php } ?>
+    <?php }
+    else
+    {?>
+        <div class="col-md-12 text-right user">
+            <a href="/auth/login"> Войти</a> &nbsp;&nbsp; <a href="/auth/signup"> Зарегистрироваться</a>
+        </div>
+    <?php
+    }
+    ?>
 </div>
 
 
@@ -32,7 +40,6 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
-<script src="/js/citys.js"></script>
 
 <?php
 foreach ($scripts as $script)

@@ -14,42 +14,23 @@ class AdsController extends AppController
     {
         $model = new Ads;
         View::setMeta('Добавить обьявление', 'description', 'keywords');
-//        $ads = R::dispense('ads');
-//        $ads->user_id = $_SESSION['id'];
-//        $ads->region = 'Запорожская';
-//        $ads->city = 'Запорожье';
-//        $ads->brand = 'BMW';
-//        $ads->model = 'M5';
-//        $ads->amount = 3.4;
-//        $ads->mileage = 987000.5;
-//        $ads->masters = 2;
-//        $ads->price = 22000;
-//        $ads->created_at = @date('Y-m-d H:i:s');
-//        $id = R::store($ads);
 
-//        $img = R::dispense('images');
-//        $img->ads_id = ;
-//        $img->path = ;
-//        $id2 = R::store($img);
-
-//        $var = R::findAll('ads','user_id = ?',[$_SESSION['id']]);
-//        $res = count($var);
-//        echo $res;
-
-        if (isset($_POST['add'])){
+        if (isset($_POST['add']))
+        {
             $var = R::findAll('ads','user_id = ?',[$_SESSION['id']]);
             $res = count($var);
             if ($res >= 3)
             {
-                echo '<div style="color: red">Максимум 3 обьявления!</div>';
+                echo '<div style="color: red; text-align: center"><b>Максимум 3 обьявления!</b><br>
+                        <a href="/ads">Назад</a> </div>';
                 die;
             }
             else
             {
                 $ads = R::dispense('ads');
                 $ads->user_id = $_SESSION['id'];
-                $ads->region = $_POST['areas'];
-                $ads->city = $_POST['cities'];
+                $ads->region = $_POST['region'];
+                $ads->city = $_POST['city'];
                 $ads->brand = $_POST['brand'];
                 $ads->model = $_POST['model'];
                 $ads->amount = $_POST['amount'];
@@ -58,12 +39,30 @@ class AdsController extends AppController
                 $ads->price = $_POST['price'];
                 $ads->created_at = @date('Y-m-d H:i:s');
                 $id = R::store($ads);
+
+                $var2 = R::getCell( 'SELECT max(id) FROM ads' );
+                $i=0;
+                foreach($_FILES['file']['name'] as $k => $v)
+                {
+                    if($_FILES['file']['error'][$k] !=0)
+                    {
+                        echo '<script>alert("Неправильный размер файла'.$v.'")</script>';
+                        continue;
+                    }
+                    if(move_uploaded_file($_FILES['file']['tmp_name'][$k],'img/avto/'.$v))
+                    {
+                        $path = R::dispense('images');
+                        $path->ads_id = $var2;
+                        $path->path = 'img/avto/'.$v;
+                        $id2 = R::store($path);
+                        $i++;
+                    }
+                }
+
+
             }
             header('Location: /ads');
         }
-
-
-
 
     }
 }

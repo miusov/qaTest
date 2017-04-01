@@ -4,8 +4,10 @@
         <form action="/ads" method="post" enctype="multipart/form-data">
 <div class="col-md-4">
 <div id="inp">
-    <p class="areas">Область</p>
-    <p class="cities">Город</p>
+    <p>Область</p>
+    <input type="text" name="region" id="region">
+    <p>Город</p>
+    <input type="text" name="city" id="city">
 </div>
 </div>
         <div class="col-md-4">

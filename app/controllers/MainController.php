@@ -32,10 +32,39 @@ class MainController extends AppController
 //        $logger->pushHandler(new StreamHandler(ROOT.'/logs/log', Logger::DEBUG));
 //        $logger->debug('find city');
 
-if (empty($_SESSION['user']))
+        $ads = R::findAll('ads', 'ORDER BY created_at DESC');
+//        $this->set(['ads'=>$ads]);
+
+
+//        if (isset($_POST['filter']))
+//        {
+//            $adsF = R::findAll('ads', 'WHERE region LIKE "%'.$_POST['region'].'%"');
+//        }
+//        else
+//        {
+//
+//        }
+//        xprint($_POST);
+if (isset($_POST['filter']))
 {
-    header('Location: auth/login');
+    if ($_POST['region'] OR $_POST['city'] OR $_POST['brand'] OR $_POST['model'])
+    {
+        $adsF = R::getAll(" SELECT * FROM `ads` WHERE `region` LIKE '%".$_POST['region']."%' AND `city` LIKE '%".$_POST['city']."%' AND `brand` LIKE '%".$_POST['brand']."%' AND `model` LIKE '%".$_POST['model']."%' ");
+        xprint($adsF);
+    }
+//    $amount = R::getAll("SELECT * FROM `ads` WHERE `amount` BETWEEN '".$_POST['amount']."' and '".$_POST['amount2']."'");
+//    $mileage = R::getAll("SELECT * FROM `ads` WHERE `mileage` BETWEEN '".$_POST['mileage']."' and '".$_POST['mileage2']."'");
+//    $price = R::getAll("SELECT * FROM `ads` WHERE `price` BETWEEN '".$_POST['price']."' and '".$_POST['price2']."'");
+
+//SELECT * FROM `ads` WHERE `region` LIKE '%зап%' AND `city` LIKE '%%' AND `brand` LIKE '%%' AND `model` LIKE '%%' AND `masters` LIKE '%%'
+//SELECT * FROM `ads` WHERE `region` LIKE '%%' AND `city` LIKE '%%' AND `brand` LIKE '%%' AND `model` LIKE '%%' AND `masters` LIKE '%%' AND `amount`<=4 AND `amount`>=3
+
+
 }
+
+
+        $this->set(['ads'=>$ads]);
+
 
     }
 
