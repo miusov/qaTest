@@ -1,7 +1,35 @@
 body{
-
+    background-color: azure;
 }
 
+h2{
+    margin-bottom: 50px;
+}
 form input{
     width: 100%;
+    padding: 5px;
+}
+
+.logo a{
+    text-decoration: none;
+    font-weight:bold;
+    color: #fff;
+}
+.logo{
+    background-color: #2b669a;
+}
+
+#inp select{
+    width: 100%;
+    padding: 5px;
+}
+.col-md-4 p{
+    margin: 10px 0;
+}
+
+button{
+    padding: 10px 25px;
+}
+#add{
+    width: 100px;
 }

@@ -15,6 +15,7 @@ class MainController extends AppController
     public function indexAction()
     {
         $model = new Main;
+        View::setMeta('Главная', 'description', 'keywords');
 //        App::$app->getList();
 //        $this->>layout = 'main';  //Задаем шаблон(layouts) для данного экшна
 //        $this->layout = false;  //Запрещаем подключение шаблонов

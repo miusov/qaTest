@@ -47,7 +47,7 @@ class AuthController extends AppController
                 R::store($user);
 
                 $logger = new Logger('REG_USER');
-                $logger->pushHandler(new StreamHandler(ROOT.'/logs/log', Logger::INFO));
+                $logger->pushHandler(new StreamHandler(ROOT.'/logs/regs/log', Logger::INFO));
                 $logger->info('Register user', ['email'=>$_POST['email']]);
 
                 echo '<div style="color:green" class="col-md-12 text-center">
@@ -78,10 +78,10 @@ class AuthController extends AppController
                     $_SESSION['id'] = $user->id;
 
                     $logger = new Logger('LOGIN_USER');
-                    $logger->pushHandler(new StreamHandler(ROOT.'/logs/log', Logger::INFO));
+                    $logger->pushHandler(new StreamHandler(ROOT.'/logs/login/log', Logger::INFO));
                     $logger->info('Login user', ['email'=>$_POST['email']]);
 
-                    header('Location: /ads/');
+                    header('Location: /');
                 }
                 else
                 {
@@ -103,6 +103,7 @@ class AuthController extends AppController
     public function logoutAction()
     {
         unset($_SESSION['user']);
+        unset($_SESSION['id']);
         header('Location: /auth/login');
     }
 }

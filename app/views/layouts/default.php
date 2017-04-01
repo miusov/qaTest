@@ -15,15 +15,27 @@
 </head>
 <body>
 
+<div class="container-fluid">
+    <div class="col-md-12 text-center logo">
+        <h1><a href="/">QATest</a></h1>
+    </div>
+    <?php if (isset($_SESSION['user'])){ ?>
+    <div class="col-md-12 text-right user">
+        Привет <b><?php echo $_SESSION['user'] ?></b> &nbsp;&nbsp; <a href="/ads"> Добавить обьявление</a> &nbsp;&nbsp; <a href="/auth/logout"> Выход</a>
+    </div>
+    <?php } ?>
+</div>
+
 
 <? echo $content ?>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/citys.js"></script>
 
 <?php
-foreach ($scripts as $script)  //цикл выводит все скрипты перед закрывающим тегом body, которые находятся в виде(сделано для того чтобы скрипты вставлялись после jQuery и других скриптов)
+foreach ($scripts as $script)
 {
     echo $script;
 }
