@@ -58,11 +58,9 @@ class AdsController extends AppController
                         $i++;
                     }
                 }
-
+                    echo '<div class="alert-success text-center">Обьявление добавлено!</div>';
 
             }
-            header('Location: /ads');
         }
-
     }
 }

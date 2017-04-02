@@ -1,6 +1,3 @@
-<?php
-
-?>
 <div class="container">
     <div class="row filter">
         <form action="/main" method="post">
@@ -49,10 +46,11 @@
     </div>
     <hr>
 <?php
+$var = '';
 
-if (isset($_POST['filter']))
-{
-    foreach ($adsF as $k => $v)
+if (isset($_POST['filter'])) {$var = $adsF;} else {$var = $ads;}
+
+    foreach ($var as $k => $v)
     {
         ?>
         <div class="row">
@@ -81,38 +79,7 @@ if (isset($_POST['filter']))
         <hr>
         <?php
     }
-}
-else {
-    foreach ($ads as $k => $v) {
         ?>
-
-        <div class="row">
-            <div class="ads">
-                <div class="col-md-12">
-                    <h3><?php echo $v['brand'] . ' ' . $v['model'] ?></h3>
-                </div>
-                <div class="col-md-7">
-                    <?php
-                    $img = R::findOne('images', 'ads_id=' . $v['id']);
-                    echo '<img src="' . $img['path'] . '" width="90%">';
-                    ?>
-                </div>
-                <div class="col-md-5 content">
-                    <p>Область: <?php echo $v['region'] ?> </p>
-                    <p>Город: <?php echo $v['city'] ?> </p>
-                    <p>Обьем двигателя: <?php echo $v['amount'] ?> л </p>
-                    <p>Пробег: <?php echo $v['mileage'] ?> км </p>
-                    <p>Кол-во хозяев: <?php echo $v['masters'] ?> </p>
-                    <p>Цена: $<?php echo $v['price'] ?> </p>
-                </div>
-            </div>
-        </div>
-        <p class="text-right" style="color: gray; font-style: italic">Дата
-            публикации: <?php echo $v['created_at'] ?></p>
-        <hr>
-    <?php
-    }
-}?>
 </div>
 
 <script>
