@@ -33,38 +33,28 @@ class MainController extends AppController
 //        $logger->debug('find city');
 
         $ads = R::findAll('ads', 'ORDER BY created_at DESC');
-//        $this->set(['ads'=>$ads]);
+        $adsF = '';
+        if (isset($_POST['filter']))
+        {
+            $region = $_POST['region'];
+            $city = $_POST['city'];
+            $brand = $_POST['brand']; if (empty($brand)) echo '<div class="alert-danger text-center">Для более точного поиска укажите марку авто!</div>';
+            $model = $_POST['model']; if (empty($model)) echo '<div class="alert-danger text-center">Для более точного поиска укажите модель авто!</div>';
+            $masters = $_POST['masters']; if (empty($masters)) {$masters = 0; $masters2 = 99;}
+            $amount = $_POST['amount']; if (empty($amount)) $amount = 0.5;
+            $amount2 = $_POST['amount2']; if (empty($amount2)) $amount2 = 8.5;
+            $mileage = $_POST['mileage']; if (empty($mileage)) $mileage = 0;
+            $mileage2 = $_POST['mileage2']; if (empty($mileage2)) $mileage2 = 9999999;
+            $price = $_POST['mileage']; if (empty($price)) $price = 0;
+            $price2 = $_POST['mileage']; if (empty($price2)) $price2 = 9999999;
 
+            if ($region OR $city OR $brand OR $model OR $masters OR $amount OR $amount2 OR $mileage OR $mileage2 OR $price OR $price2)
+            {
+                $adsF = R::getAll(" SELECT * FROM `ads` WHERE `region` LIKE '%{$region}%' AND `city` LIKE '%{$city}%' AND `brand` LIKE '%{$brand}%' AND `model` LIKE '%{$model}%' AND `masters` BETWEEN {$masters} AND {$masters2} AND `amount` BETWEEN {$amount} AND {$amount2} AND `mileage` BETWEEN {$mileage} AND {$mileage2} AND `price` BETWEEN {$price} AND {$price2} ORDER BY created_at DESC ");
+            }
+        }
 
-//        if (isset($_POST['filter']))
-//        {
-//            $adsF = R::findAll('ads', 'WHERE region LIKE "%'.$_POST['region'].'%"');
-//        }
-//        else
-//        {
-//
-//        }
-//        xprint($_POST);
-if (isset($_POST['filter']))
-{
-    if ($_POST['region'] OR $_POST['city'] OR $_POST['brand'] OR $_POST['model'])
-    {
-        $adsF = R::getAll(" SELECT * FROM `ads` WHERE `region` LIKE '%".$_POST['region']."%' AND `city` LIKE '%".$_POST['city']."%' AND `brand` LIKE '%".$_POST['brand']."%' AND `model` LIKE '%".$_POST['model']."%' ");
-        xprint($adsF);
-    }
-//    $amount = R::getAll("SELECT * FROM `ads` WHERE `amount` BETWEEN '".$_POST['amount']."' and '".$_POST['amount2']."'");
-//    $mileage = R::getAll("SELECT * FROM `ads` WHERE `mileage` BETWEEN '".$_POST['mileage']."' and '".$_POST['mileage2']."'");
-//    $price = R::getAll("SELECT * FROM `ads` WHERE `price` BETWEEN '".$_POST['price']."' and '".$_POST['price2']."'");
-
-//SELECT * FROM `ads` WHERE `region` LIKE '%зап%' AND `city` LIKE '%%' AND `brand` LIKE '%%' AND `model` LIKE '%%' AND `masters` LIKE '%%'
-//SELECT * FROM `ads` WHERE `region` LIKE '%%' AND `city` LIKE '%%' AND `brand` LIKE '%%' AND `model` LIKE '%%' AND `masters` LIKE '%%' AND `amount`<=4 AND `amount`>=3
-
-
-}
-
-
-        $this->set(['ads'=>$ads]);
-
+        $this->set(['ads'=>$ads, 'adsF'=>$adsF]);
 
     }
 

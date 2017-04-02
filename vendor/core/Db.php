@@ -18,7 +18,7 @@ class Db
 
         R::setup($db['dsn'], $db['user'], $db['pass']);
         R::freeze(true);
-        R::fancyDebug(true);  //выводит запросы к БД
+//        R::fancyDebug(true);  //выводит запросы к БД
 
     }
 
