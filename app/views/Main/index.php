@@ -1,6 +1,16 @@
+<style>
+    .a{
+        margin-right: 10px;
+        padding: 5px 10px;
+    }
+    .a:nth-child(<?=$_GET['page']?>){
+        color: white;
+        background-color: #2b669a;
+    }
+</style>
 <div class="container">
     <div class="row filter">
-        <form action="/main" method="post">
+        <form method="post">
             <div class="col-md-3">
                 <p class="text-center">Местоположение</p>
                 <label for="region">Область</label>
@@ -45,14 +55,13 @@
         </form>
     </div>
     <hr>
+
 <?php
 $var = '';
-
-if (isset($_POST['filter'])) {$var = $adsF;} else {$var = $ads;}
-
-    foreach ($var as $k => $v)
+if (isset($_POST['filter'])) {$content = $adsF;} else {$content = $ads;}
+    foreach ($content as $k => $v)
     {
-        ?>
+ ?>
         <div class="row">
             <div class="ads">
                 <div class="col-md-12">
@@ -77,13 +86,34 @@ if (isset($_POST['filter'])) {$var = $adsF;} else {$var = $ads;}
         <p class="text-right" style="color: gray; font-style: italic">Дата
             публикации: <?php echo $v['created_at'] ?></p>
         <hr>
+
         <?php
     }
         ?>
-</div>
 
+    <div class="text-center" style="margin-bottom: 30px">
+        <?php
+        if (!$_POST)
+            for ($i=1; $i<=$countPages; $i++)
+            {
+                echo '<a href="#" class="a" value="'.$i.'">'.$i.'</a> &nbsp';
+            }
+        ?>
+    </div>
+
+</div>
 <script>
 
+    $('.a').on('click', function(){
+        $.ajax({
+            url: "main",
+            type: "GET",
+            data: "page="+$(this).text(),
+            success: function(data){
+                $('body').html(data);
+            }
+        });
+    });
 </script>
 
 

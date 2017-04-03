@@ -21,9 +21,7 @@ class AdsController extends AppController
             $res = count($var);
             if ($res >= 3)
             {
-                echo '<div style="color: red; text-align: center"><b>Максимум 3 обьявления!</b><br>
-                        <a href="/ads">Назад</a> </div>';
-                die;
+                echo '<div class="text-center alert-danger"><b>Максимум 3 обьявления!</b><br>';
             }
             else
             {
